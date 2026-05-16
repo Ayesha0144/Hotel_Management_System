@@ -1,0 +1,93 @@
+package hotel.management.system;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.*;
+import net.proteanit.sql.*;//to show table
+public class EmployeeInfo extends JFrame implements ActionListener{
+    JTable t1;
+    JButton b1,b2;
+    EmployeeInfo(){
+        t1 = new JTable();
+        t1.setBounds(0, 40, 1000, 500);
+        add(t1);
+        
+        JLabel l1 = new JLabel("Name");
+        l1.setFont(new Font("Tahoma" ,Font.BOLD ,14));
+        l1.setBounds(40, 10, 70 ,20);
+        add(l1);
+        
+        JLabel l2 = new JLabel("Age");
+        l2.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l2.setBounds(190, 10, 70 ,20);
+        add(l2);
+        
+        JLabel l3 = new JLabel("Gender");
+        l3.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l3.setBounds(320, 10, 70 ,20);
+        add(l3);
+        
+        JLabel l4 = new JLabel("Job");
+        l4.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l4.setBounds(480, 10, 70 ,20);
+        add(l4);
+        
+        JLabel l5 = new JLabel("Salary");
+        l5.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l5.setBounds(610, 10, 70 ,20);
+        add(l5);
+                
+        JLabel l6 = new JLabel("Phone");
+        l6.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l6.setBounds(760, 10, 70 ,20);
+        add(l6);
+        
+        JLabel l7 = new JLabel("Email");
+        l7.setFont(new Font("Tahoma" ,Font.BOLD, 14));
+        l7.setBounds(890, 10, 70 ,20);
+        add(l7);
+        
+          
+        b1 = new JButton("Load Data");
+        b1.setBounds(350, 560, 120, 30);
+        b1.setBackground(Color.BLACK);
+        b1.setForeground(Color.WHITE);
+        b1.addActionListener(this);
+        add(b1);
+        
+        b2 = new JButton("Back");
+        b2.setBounds(520, 560, 120, 30);
+        b2.setBackground(Color.BLACK);
+        b2.setForeground(Color.WHITE);
+        b2.addActionListener(this);
+        add(b2);
+        
+         getContentPane().setBackground(Color.LIGHT_GRAY);
+        
+        setLayout(null);
+        setBounds(200,80,1000,640);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent ae){
+        if(ae.getSource()==b1){
+            try{ 
+                
+                 Conn c = new Conn();
+                 String str="Select * from employee";
+                 ResultSet rs = c.s.executeQuery(str);//uper wali sql statment say jo result niklay ga wo resultset class mn store hojaye ga
+                 t1.setModel(DbUtils.resultSetToTableModel(rs));//to show table
+             }
+             catch(Exception e){
+                
+            }
+            
+        } else if(ae.getSource()==b2){
+            new Reception().setVisible(true);
+            this.setVisible(false);
+        }
+        
+    }
+    public static void main(String[]args){
+        new EmployeeInfo().setVisible(true);
+    }
+}
